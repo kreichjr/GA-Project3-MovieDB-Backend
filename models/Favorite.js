@@ -18,8 +18,11 @@ const favoriteSchema = new Schema({
 	imdbId: {
 		type: String
 	},
-	rating: {
-		type: Number
+	rated: {
+		type: String
+	},
+	runtime: {
+		type: String
 	},
 	hasWatched: {
 		type: Boolean,
