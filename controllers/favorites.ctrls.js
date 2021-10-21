@@ -14,6 +14,13 @@ const create = (req, res) => {
 	})
 }
 
+const update = (req, res) => {
+	db.Favorite.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedFavorite) => {
+		if (err) return res.status(400).json({error: err})
+		res.status(200).json(updatedFavorite)
+	})
+}
+
 const destroy = (req, res) => {
 	db.Favorite.findByIdAndDelete(req.params.id, (err, deletedFavorite) => {
 		if (err) return res.status(400).json({error: err})
@@ -25,6 +32,6 @@ const destroy = (req, res) => {
 module.exports = {
 	index,
 	create,
+	update,
 	destroy,
-	
 }
