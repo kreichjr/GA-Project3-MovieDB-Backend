@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3003
 const app = express()
 
 // DB Connection
-
+require('./config/db.connection')
 
 // Middleware
 app.use(express.json())
