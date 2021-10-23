@@ -1,39 +1,31 @@
 const db = require('../models')
 
-const index = (req, res) => {
-	db.Favorite.find({}, (err, foundFavorites) => {
+const sendStatusAndJson = (req, res, code) => {
+	return (err, dbResult) => {
 		if (err) return res.status(400).json({error: err})
-		res.status(200).json(foundFavorites)
-	})
+		res.status(code).json(dbResult)
+	}
+}
+
+const index = (req, res) => {
+	db.Favorite.find({}, sendStatusAndJson(200))
 }
 
 const create = (req, res) => {
-	db.Favorite.create(req.body, (err, createdFavorite) => {
-		if (err) return res.status(400).json({error: err})
-		res.status(201).json(createdFavorite) 
-	})
+	db.Favorite.create(req.body, sendStatusAndJson(201))
 }
 
 const update = (req, res) => {
-	db.Favorite.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedFavorite) => {
-		if (err) return res.status(400).json({error: err})
-		res.status(200).json(updatedFavorite)
-	})
+	db.Favorite.findByIdAndUpdate(req.params.id, req.body, {new: true}, sendStatusAndJson(200))
 }
 
 const destroy = (req, res) => {
-	db.Favorite.findByIdAndDelete(req.params.id, (err, deletedFavorite) => {
-		if (err) return res.status(400).json({error: err})
-		res.status(200).json(deletedFavorite)
-	})
+	db.Favorite.findByIdAndDelete(req.params.id, sendStatusAndJson(200))
 }
 
 const seed = (req, res) => {
 	const seedData = require('../models/seed')
-	db.Favorite.create(seedData, (err, createdData) => {
-		if (err) return res.status(400).json({error: err})
-		res.status(200).json(createdData)
-	})
+	db.Favorite.create(seedData, sendStatusAndJson(201))
 }
 
 
