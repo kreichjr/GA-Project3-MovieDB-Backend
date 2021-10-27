@@ -8,24 +8,29 @@ const sendStatusAndJson = (req, res, code) => {
 }
 
 const index = (req, res) => {
-	db.Favorite.find({}, sendStatusAndJson(200))
+	console.log('index hit')
+	db.Favorite.find({}, sendStatusAndJson(req, res, 200))
 }
 
 const create = (req, res) => {
-	db.Favorite.create(req.body, sendStatusAndJson(201))
+	console.log('create hit')
+	db.Favorite.create(req.body, sendStatusAndJson(req, res, 201))
 }
 
 const update = (req, res) => {
-	db.Favorite.findByIdAndUpdate(req.params.id, req.body, {new: true}, sendStatusAndJson(200))
+	console.log('update hit')
+	db.Favorite.findByIdAndUpdate(req.params.id, req.body, {new: true}, sendStatusAndJson(req, res, 200))
 }
 
 const destroy = (req, res) => {
-	db.Favorite.findByIdAndDelete(req.params.id, sendStatusAndJson(200))
+	console.log('destroy hit')
+	db.Favorite.findByIdAndDelete(req.params.id, sendStatusAndJson(req, res, 200))
 }
 
 const seed = (req, res) => {
+	console.log('seed hit')
 	const seedData = require('../models/seed')
-	db.Favorite.create(seedData, sendStatusAndJson(201))
+	db.Favorite.create(seedData, sendStatusAndJson(req, res, 201))
 }
 
 
